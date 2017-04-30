@@ -42,10 +42,20 @@
 // Using without potentiometer 
 // follow this tutorial https://www.youtube.com/watch?v=QS1rGdFrBd4
 
-int Contrast=75;
+int Contrast=20;
 
 // initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2); 
+
+// LCD      Arduino/BreadBoard
+// VSS        Ground
+// VDD        5v (Arduino via breadboard)
+// V0         6 (Arduino)
+// RS         12 (Arduino)
+// E          11 (Arduino) 
+// D4.D6      5,4,3,2 (Arduino)
+// A(LED+)    5v with 220 ohm (backlight)
+// E(LED-)    Ground
 
 void setup() {
   Serial.begin(9600);

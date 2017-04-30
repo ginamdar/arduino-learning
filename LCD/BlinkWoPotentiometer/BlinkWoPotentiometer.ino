@@ -52,6 +52,7 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 // VDD        5v (Arduino via breadboard)
 // V0         6 (Arduino)
 // RS         12 (Arduino)
+// RW         Ground
 // E          11 (Arduino) 
 // D4.D6      5,4,3,2 (Arduino)
 // A(LED+)    5v with 220 ohm (backlight)

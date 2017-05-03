@@ -10,7 +10,7 @@ int distance;
 
 void setup(){
   Serial.begin(9600);
-  analogWrite(6, Contrast);
+//  analogWrite(6, Contrast);
   lcd.begin(16, 2);
   Serial.println("Measuring distance on HC-SR04");
   lcd.setCursor(0,0);

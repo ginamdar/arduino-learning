@@ -72,10 +72,10 @@ boolean reconnect() {
       Serial.println("connected");
       return true;
     } else {
-      Serial.print("With cId=");
       Serial.print(" failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 10 seconds");
+      // Wait 5 seconds before retrying
       delay(10000);
     }
   }
@@ -102,14 +102,6 @@ void loop() {
     snprintf (msg, 75, "hello world #%ld", value);
     Serial.print("Publish message: ");
     Serial.print(msg);
-    Serial.print("to ");
-    Serial.print(FEED_PATH);
     boolean success = client.publish(FEED_PATH, msg);
-    if (success){
-      Serial.print(" successfully");
-    }else{
-      Serial.print(" failed");
-    }
-    Serial.println();
   }
 }

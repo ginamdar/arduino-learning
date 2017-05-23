@@ -1,2 +1,7 @@
 Config.h
+.DS_Store.
+.metadata
+.bin
+tmp
+bin
 Feed.h

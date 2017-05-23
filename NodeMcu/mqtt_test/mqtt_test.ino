@@ -28,10 +28,6 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-#define ContainerID "1" //Change this to be unique for each container!
-#define mqttContainer "ginamdar/feeds/basement.salt-level" ContainerID
-
-
 // Update these with values suitable for your network.
 void callback(char* topic, byte* payload, unsigned int length);
 
@@ -77,11 +73,9 @@ boolean reconnect() {
       return true;
     } else {
       Serial.print("With cId=");
-      Serial.print(clientId.c_str());
       Serial.print(" failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 10 seconds");
-      // Wait 5 seconds before retrying
       delay(10000);
     }
   }

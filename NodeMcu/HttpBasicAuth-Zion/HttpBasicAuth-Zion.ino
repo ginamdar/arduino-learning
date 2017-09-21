@@ -1,45 +1,42 @@
 #include <ESP8266WiFi.h>
-#include <ESP8266mDNS.h>
-#include <ArduinoOTA.h>
-#include <ESP8266WebServer.h>
-
-const char* ssid = "Zion";
-const char* password = "Password";
-
-ESP8266WebServer server(80);
-
-const char* www_username = "admin";
-const char* www_password = "esp8266";
 
 void setup() {
   Serial.begin(115200);
-  delay(10);
+  Serial.setDebugOutput(true);
   Serial.println();
-  
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  if(WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.println("WiFi Connect Failed! Rebooting...");
-    delay(1000);
-    ESP.restart();
+  Serial.println("Starting setup");
+
+  Serial.print("Scan start ... ");
+  int n = WiFi.scanNetworks();
+  Serial.print(n);
+  Serial.println(" network(s) found");
+  for (int i = 0; i < n; i++)
+  {
+    Serial.println(WiFi.SSID(i));
   }
-  ArduinoOTA.begin();
+  Serial.println();
 
-  server.on("/", [](){
-    if(!server.authenticate(www_username, www_password))
-      return server.requestAuthentication();
-    server.send(200, "text/plain", "Login OK");
-  });
-  server.begin();
+  WiFi.disconnect(true);
+  WiFi.setAutoConnect(false);
+  WiFi.setPhyMode(WIFI_PHY_MODE_11G);
+  WiFi.begin("Zion", "Nostromo14");
+  WiFi.printDiag(Serial);
+  Serial.println(WiFi.getPhyMode());
 
-  Serial.print("Open http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("/ in your browser to see it working");
+  Serial.print("Connecting");
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println();
+  Serial.print("Connected, IP address: ");
+  Serial.println(WiFi.localIP());
+
+  delay(2000);
 }
 
-void loop() {
-  ArduinoOTA.handle();
-  server.handleClient();
+void loop(){
+  return;
 }
-
 

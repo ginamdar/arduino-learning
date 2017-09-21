@@ -17,6 +17,13 @@
 #include <Wire.h>             //http://arduino.cc/en/Reference/Wire
 #include <Streaming.h>        //http://arduiniana.org/libraries/streaming/
 
+/*
+SCL -> SCL (Uno: A5, Mega: 21, Leo*: SCL)
+SDA -> SDA (Uno: A4, Mega: 20, Leo*: SDA)
+VCC -> 5v
+GND -> GND
+*/
+
 #define SQW_PIN 2
 
 void repeatAlarm() {

@@ -27,6 +27,8 @@ GND -> GND
 #define SQW_PIN 2
 
 void repeatAlarm() {
+  RTC.alarm(ALARM_1);                   //ensure RTC interrupt flag is cleared
+  RTC.alarmInterrupt(ALARM_1, false);
   time_t time = RTC.get();
   int mi = minute(time);
   int hr = hour(time);
@@ -38,9 +40,9 @@ void repeatAlarm() {
 //    mi += 2;
 //  }
   if (hr == 24) {
-    hr = 2;
+    hr = 1;
   }
-  Serial<<"New Time(hr:mm):" << _DEC(hr)<< ":"<<_DEC(mi)<<endl;
+  Serial<<"New Time(hr:mm):" << _DEC(hr)<< ":"<<_DEC(0)<<endl;
   RTC.setAlarm(ALM2_MATCH_HOURS, 0, hr, 1);    //daydate parameter should be between 1 and 7
   RTC.alarm(ALARM_2);                   //ensure RTC interrupt flag is cleared
   RTC.alarmInterrupt(ALARM_2, true);
@@ -67,13 +69,7 @@ void setup(void)
 
     //Attach an interrupt on the falling of the SQW pin.
     pinMode(SQW_PIN, INPUT_PULLUP);
-//    attachInterrupt(INT0, alarmIsr, FALLING);
     attachInterrupt(digitalPinToInterrupt(SQW_PIN), alarmIsr, FALLING);
-
-    //Set an alarm at every 20th second of every minute.
-//    RTC.setAlarm(ALM1_MATCH_SECONDS, 20, 0, 0, 1);    //daydate parameter should be between 1 and 7
-    RTC.alarm(ALARM_1);                   //ensure RTC interrupt flag is cleared
-    RTC.alarmInterrupt(ALARM_1, false);
 
     //Set an alarm every minute.
     repeatAlarm();
